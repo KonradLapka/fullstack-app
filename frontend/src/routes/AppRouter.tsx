@@ -53,7 +53,9 @@ const App: React.FC = () => {
             path="/groups/:groupId/members"
             element={
               <PrivateRoute>
-                <GroupMembersPage />
+                <GroupMembersPage group={{id: 0, name: "", ownerId:0}} onBack={function(): void {
+                        throw new Error("Function not implemented.");
+                    } } />
               </PrivateRoute>
             }
           />
