@@ -2,6 +2,7 @@ package com.example.pasir_lapka_konrad.service;
 
 import com.example.pasir_lapka_konrad.dto.BalanceDto;
 import com.example.pasir_lapka_konrad.dto.TransactionDto;
+import com.example.pasir_lapka_konrad.exception.ExceptionConstraints;
 import com.example.pasir_lapka_konrad.model.Transaction;
 import com.example.pasir_lapka_konrad.model.TransactionType;
 import com.example.pasir_lapka_konrad.model.User;
@@ -28,11 +29,12 @@ public class TransactionService {
     }
 
     public Transaction getTransactionById(Long id) {
-        return transactionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+        return transactionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(ExceptionConstraints.TRANSACTION_NOT_FOUND.formatted(id)));
     }
 
     public Transaction updateTransaction(Long id, TransactionDto transactionDto) {
-        Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionConstraints.TRANSACTION_NOT_FOUND.formatted(id)));
 
         if (!transaction.getUser().getEmail().equals(getCurrentUser().getEmail())) {
             throw new SecurityException("Brak dostępu do edycji tej transakcji");
@@ -59,7 +61,8 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long id) {
-        Transaction transaction = transactionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Nie znaleziono transakcji o ID " + id));
+        Transaction transaction = transactionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ExceptionConstraints.TRANSACTION_NOT_FOUND.formatted(id)));
 
         if (!transaction.getUser().getEmail().equals(getCurrentUser().getEmail())) {
             throw new SecurityException("Brak dostępu do usunięcia tej transakcji");

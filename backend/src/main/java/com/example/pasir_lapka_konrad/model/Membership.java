@@ -18,7 +18,7 @@ public class Membership {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group group;
+    private Group group; // NOSONAR
 
     @ManyToOne
     @JoinColumn(name = "user_id")

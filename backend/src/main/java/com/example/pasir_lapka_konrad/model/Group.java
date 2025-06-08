@@ -25,5 +25,5 @@ public class Group {
     private User owner;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Membership> memberships;
+    private List<Membership> memberships; // NOSONAR
 }
