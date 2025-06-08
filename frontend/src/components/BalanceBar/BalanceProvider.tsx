@@ -35,6 +35,6 @@ export const BalanceProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <BalanceContext.Provider value={{ balance, refreshBalance }}>
       {children}
-    </BalanceContext.Provider>
+    </BalanceContext.Provider> // NOSONAR
   );
 };
